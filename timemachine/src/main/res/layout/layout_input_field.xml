@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:paddingLeft="@dimen/input_field_padding_horizontal"
+    android:paddingRight="@dimen/input_field_padding_horizontal"
+    android:orientation="horizontal"
+    android:gravity="bottom"
+    android:background="@color/black"
+    tools:showIn="@layout/fragment_core">
+
+    <ImageView
+        android:id="@+id/left_action"
+        android:layout_width="@dimen/input_field_height"
+        android:layout_height="@dimen/input_field_height"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_at_light"/>
+
+    <EditText
+        android:id="@+id/input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingTop="@dimen/input_field_padding_vertical"
+        android:paddingBottom="@dimen/input_field_padding_vertical"
+        android:minHeight="@dimen/input_field_height"
+        android:maxHeight="@dimen/input_field_max_height"
+        android:background="@null"
+        android:textColorHint="@color/hint_light"
+        android:textColor="@color/white"
+        android:hint="@string/hint_input"/>
+
+    <ImageView
+        android:id="@+id/right_action"
+        android:layout_width="@dimen/input_field_height"
+        android:layout_height="@dimen/input_field_height"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_send_light"/>
+
+</LinearLayout>
