@@ -23,6 +23,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:paddingLeft="@dimen/input_field_padding_horizontal"
+        android:paddingRight="@dimen/input_field_padding_horizontal"
         android:paddingTop="@dimen/input_field_padding_vertical"
         android:paddingBottom="@dimen/input_field_padding_vertical"
         android:minHeight="@dimen/input_field_height"
