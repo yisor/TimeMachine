@@ -5,13 +5,18 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "me.drakeet.timemachine"
+        applicationId "me.drakeet.transformer"
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
     }
+
     buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -24,4 +29,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.android.support:design:23.3.0'
+    compile 'com.google.android.agera:agera:1.0.0-rc2'
+    compile 'com.google.android.agera:database:1.0.0-rc2'
+    compile 'com.google.android.agera:net:1.0.0-rc2'
+    compile 'com.google.android.agera:rvadapter:1.0.0-rc2'
 }

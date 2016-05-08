@@ -1,4 +1,4 @@
-package me.drakeet.timemachine;
+package me.drakeet.transformer;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package me.drakeet.timemachine;
+package me.drakeet.transformer;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
