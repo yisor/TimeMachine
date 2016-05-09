@@ -6,4 +6,7 @@
     <dimen name="input_field_padding_vertical">8dp</dimen>
     <dimen name="input_field_max_height">128dp</dimen>
     <dimen name="input_field_padding_horizontal">2dp</dimen>
+    <dimen name="message_padding_normal">12dp</dimen>
+    <dimen name="message_padding_arrow">24dp</dimen>
+    <dimen name="message_margin_vertical">4dp</dimen>
 </resources>

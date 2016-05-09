@@ -4,4 +4,13 @@
     <color name="white">#ffffff</color>
     <color name="black">#de000000</color>
     <color name="hint_light">#99ffffff</color>
+
+    <color name="textColorPrimary">#de000000</color>
+    <color name="textColorPrimaryHint">#787474</color>
+    <color name="textColorPrimaryLite">#a5abb5</color>
+    <color name="textColorPrimaryDark">#000000</color>
+    <color name="textColorPrimaryLight">#de6c6969</color>
+
+    <color name="windowBackgroundColor">#FFF2EC</color>
+    <color name="imagePlaceholder">#e7e5e5</color>
 </resources>

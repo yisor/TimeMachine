@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Message"></style>
+
+    <style name="Message.Content">
+        <item name="android:textColor">@color/textColorPrimary</item>
+        <item name="android:paddingTop">@dimen/message_padding_normal</item>
+        <item name="android:paddingBottom">@dimen/message_padding_normal</item>
+    </style>
+
+    <style name="Message.Frame">
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_marginTop">@dimen/message_margin_vertical</item>
+        <item name="android:layout_marginBottom">@dimen/message_margin_vertical</item>
+    </style>
+
+    <style name="Message.Content.Out">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingRight">@dimen/message_padding_arrow</item>
+        <item name="android:paddingTop">@dimen/message_padding_normal</item>
+        <item name="android:background">@drawable/bg_msg_out</item>
+    </style>
+
+    <style name="Message.Content.In">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingRight">@dimen/message_padding_normal</item>
+        <item name="android:paddingLeft">@dimen/message_padding_arrow</item>
+        <item name="android:background">@drawable/bg_msg_in</item>
+    </style>
+
+</resources>
