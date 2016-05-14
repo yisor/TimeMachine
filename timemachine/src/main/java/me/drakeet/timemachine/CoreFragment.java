@@ -9,16 +9,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import java.util.List;
 
 /**
- * Created by drakeet(http://drakeet.me)
- * Date: 16/5/8 15:09
+ * @author drakeet
  */
-public class CoreFragment extends Fragment {
+public class CoreFragment extends Fragment implements CoreContract.View {
 
-    RecyclerView mRecyclerView;
-    // private Adapter mAdapter;
-    // private List<..>mList;
+    private RecyclerView mRecyclerView;
+    private MessageAdapter mAdapter;
+    private List<Message> mList;
+
+    CoreContract.Delegate mDelegate;
 
 
     public CoreFragment() {
@@ -38,10 +40,15 @@ public class CoreFragment extends Fragment {
     }
 
 
+    @Override public void setDelegate(CoreContract.Delegate delegate) {
+        mDelegate = delegate;
+    }
+
+
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // mList = new ArrayList<>();
-        // mAdapter = new Adapter();
+        mList = mDelegate.provideInitialMessages();
+        mAdapter = new MessageAdapter(mList);
     }
 
 
@@ -64,6 +71,11 @@ public class CoreFragment extends Fragment {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        // mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
+
+    @Override public void onNewIn(Message message) {
+
     }
 }

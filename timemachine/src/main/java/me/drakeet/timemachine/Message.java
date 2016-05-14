@@ -3,8 +3,7 @@ package me.drakeet.timemachine;
 import java.util.Date;
 
 /**
- * Created by drakeet(http://drakeet.me)
- * Date: 16/5/9 22:41
+ * @author drakeet
  */
 public class Message {
 

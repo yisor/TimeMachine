@@ -5,12 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import butterknife.ButterKnife;
 import java.util.List;
 
 /**
- * Created by drakeet(http://drakeet.me)
- * Date: 16/5/9 22:34
+ * @author drakeet
  */
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
 
@@ -47,7 +45,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         public ViewHolder(View itemView) {
             super(itemView);
             context = itemView.getContext();
-            ButterKnife.bind(this, itemView);
         }
     }
 }
