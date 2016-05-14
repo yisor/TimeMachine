@@ -76,6 +76,8 @@ public class CoreFragment extends Fragment implements CoreContract.View {
 
 
     @Override public void onNewIn(Message message) {
-
+        int _size = mList.size();
+        mList.add(message);
+        mAdapter.notifyItemInserted(_size);
     }
 }

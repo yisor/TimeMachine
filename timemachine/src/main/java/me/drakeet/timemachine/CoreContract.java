@@ -20,7 +20,7 @@ public interface CoreContract {
 
         List<Message> provideInitialMessages();
         void onNewOut(Message message);
-        void onMessageClicked();
+        void onMessageClicked(Message message);
     }
 
 

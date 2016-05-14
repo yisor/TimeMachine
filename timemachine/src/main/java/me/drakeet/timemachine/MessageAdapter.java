@@ -32,6 +32,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     @Override public void onBindViewHolder(ViewHolder holder, int position) {
         Message data = mList.get(position);
+        holder.content.setText(data.content);
     }
 
 
