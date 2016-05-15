@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import me.drakeet.timemachine.CoreContract;
 import me.drakeet.timemachine.CoreFragment;
@@ -28,11 +29,10 @@ public class MainActivity extends AppCompatActivity
     private CoreContract.View mCoreView;
     private List<Message> mMessages = new ArrayList<Message>() {
         {
-            add(new Message("test"));
-            add(new Message("test"));
-            add(new Message("test"));
-            add(new Message("test"));
-            add(new Message("test"));
+            add(new Message("Hello world"));
+            add(new Message("Sit down! We're going to drive!"));
+            add(new Message("Parking Fenglin love to sit late."));
+            add(new Message("~~", "someone", "drakeet", new Date()));
         }
     };
 

@@ -29,10 +29,10 @@ public class TimeKey {
 
 
     public static boolean isCurrentUser(String userId) {
-        if (TimeKey.userId == null || userId == null) {
-            return false;
+        if (TimeKey.userId == null) {
+            throw new RuntimeException("TimeKey.userId is null, did you initialize the TimeKey?");
         } else {
-            return TimeKey.userId.equals(userId);
+            return userId != null && TimeKey.userId.equals(userId);
         }
     }
 }
