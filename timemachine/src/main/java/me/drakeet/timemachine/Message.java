@@ -15,7 +15,7 @@ public class Message {
     public Date createdAt;
 
 
-    public Message(String content) {
+    public Message(@NonNull String content) {
         this(content, /*toUserId = */null);
     }
 
