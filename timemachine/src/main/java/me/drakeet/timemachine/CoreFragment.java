@@ -21,6 +21,7 @@ public class CoreFragment extends Fragment implements CoreContract.View {
     private List<Message> mList;
 
     CoreContract.Delegate mDelegate;
+    OnRecyclerItemClickListener mItemClickListener;
 
 
     public CoreFragment() {
@@ -72,6 +73,17 @@ public class CoreFragment extends Fragment implements CoreContract.View {
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mAdapter);
+        mItemClickListener = new OnRecyclerItemClickListener(getContext()) {
+            @Override void onItemClick(View view, int position) {
+                mDelegate.onMessageClicked(mList.get(position));
+            }
+
+
+            @Override void onItemLongClick(View view, int position) {
+                mDelegate.onMessageLongClicked(mList.get(position));
+            }
+        };
+        mRecyclerView.addOnItemTouchListener(mItemClickListener);
     }
 
 
@@ -79,5 +91,11 @@ public class CoreFragment extends Fragment implements CoreContract.View {
         int _size = mList.size();
         mList.add(message);
         mAdapter.notifyItemInserted(_size);
+    }
+
+
+    @Override public void onDestroy() {
+        super.onDestroy();
+        mRecyclerView.removeOnItemTouchListener(mItemClickListener);
     }
 }

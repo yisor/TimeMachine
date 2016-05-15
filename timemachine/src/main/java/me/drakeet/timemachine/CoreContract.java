@@ -21,6 +21,7 @@ public interface CoreContract {
         List<Message> provideInitialMessages();
         void onNewOut(Message message);
         void onMessageClicked(Message message);
+        void onMessageLongClicked(Message message);
     }
 
 

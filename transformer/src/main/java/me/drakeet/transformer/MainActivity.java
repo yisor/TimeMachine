@@ -71,12 +71,17 @@ public class MainActivity extends AppCompatActivity
 
 
     @Override public void onNewOut(Message message) {
-        Log.v(TAG, "onNewOut" + message.toString());
+        Log.v(TAG, "onNewOut: " + message.toString());
     }
 
 
     @Override public void onMessageClicked(Message message) {
-        Log.v(TAG, "onMessageClicked" + message.toString());
+        Log.v(TAG, "onMessageClicked: " + message.toString());
+    }
+
+
+    @Override public void onMessageLongClicked(Message message) {
+        Log.v(TAG, "onMessageLongClicked: " + message.toString());
     }
 
 
