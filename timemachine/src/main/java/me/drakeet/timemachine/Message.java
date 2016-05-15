@@ -21,7 +21,7 @@ public class Message {
 
 
     public Message(@NonNull String content, @Nullable String toUserId) {
-        this(content, TimeKey.userId, toUserId, new Date());
+        this(content, TimeKey.userId, toUserId, new Now());
     }
 
 
