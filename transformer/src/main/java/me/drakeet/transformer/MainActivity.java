@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity
 
     private CoreContract.Service mService;
     private CoreContract.View mCoreView;
-    private List<Message> mMessages = new ArrayList<Message>() {
+    private List<Message> mMessages = new ArrayList<Message>(100) {
         {
             add(new Message("Hello world"));
             add(new Message("Sit down! We're going to drive!"));
@@ -75,13 +75,23 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    @Override public void onMessageClicked(Message message) {
+    @Override public void onMessageClick(Message message) {
         Log.v(TAG, "onMessageClicked: " + message.toString());
     }
 
 
-    @Override public void onMessageLongClicked(Message message) {
+    @Override public void onMessageLongClick(Message message) {
         Log.v(TAG, "onMessageLongClicked: " + message.toString());
+    }
+
+
+    @Override public boolean onLeftActionClick() {
+        return false;
+    }
+
+
+    @Override public boolean onRightActionClick() {
+        return false;
     }
 
 

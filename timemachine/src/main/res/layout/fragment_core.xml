@@ -3,24 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".CoreFragment">
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="@dimen/message_padding_normal"
-        android:clipToPadding="false"/>
 
     <include
         android:id="@+id/input_field"
         layout="@layout/layout_input_field"/>
 
-    <View
-        android:visibility="gone"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_above="@+id/input_field"
-        android:background="@drawable/bottom_shadow"/>
+        android:layout_height="match_parent"
+        android:layout_above="@id/input_field"
+        android:paddingTop="@dimen/message_padding_normal"
+        android:paddingBottom="@dimen/message_padding_normal"
+        android:clipToPadding="false"/>
 
 </RelativeLayout>
