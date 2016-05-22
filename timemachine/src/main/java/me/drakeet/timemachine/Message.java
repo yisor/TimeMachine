@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * @author drakeet
  */
-public class Message {
+public class Message implements Cloneable {
 
     public String content;
     public String fromUserId;
@@ -15,12 +15,12 @@ public class Message {
     public Date createdAt;
 
 
-    public Message(@NonNull String content) {
+    @Deprecated public Message(@NonNull String content) {
         this(content, /*toUserId = */null);
     }
 
 
-    public Message(@NonNull String content, @Nullable String toUserId) {
+    @Deprecated public Message(@NonNull String content, @Nullable String toUserId) {
         this(content, TimeKey.userId, toUserId, new Now());
     }
 
@@ -30,6 +30,14 @@ public class Message {
         this.fromUserId = fromUserId;
         this.toUserId = toUserId;
         this.createdAt = createdAt;
+    }
+
+
+    public Message(Message message) {
+        this.content = message.content;
+        this.fromUserId = message.fromUserId;
+        this.toUserId = message.toUserId;
+        this.createdAt = message.createdAt;
     }
 
 
@@ -62,5 +70,17 @@ public class Message {
                 ", toUserId='" + toUserId + '\'' +
                 ", createdAt=" + createdAt +
                 '}';
+    }
+
+
+    @Override public Message clone() {
+        Message message = null;
+        try {
+            message = (Message) super.clone();
+            message.createdAt = new Date(message.createdAt.getTime());
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return message;
     }
 }

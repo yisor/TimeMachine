@@ -10,14 +10,13 @@ public interface CoreContract {
     // @formatter:off
 
     interface View {
-
         void setDelegate(Delegate delegate);
+        void setService(Service service);
         void onNewIn(Message message);
     }
 
 
     interface Delegate {
-
         List<Message> provideInitialMessages();
         void onNewOut(Message message);
         void onMessageClick(Message message);
@@ -29,5 +28,8 @@ public interface CoreContract {
 
     interface Service {
         // pass
+        void start();
+        void destroy();
+        void onNewOut(Message message);
     }
 }

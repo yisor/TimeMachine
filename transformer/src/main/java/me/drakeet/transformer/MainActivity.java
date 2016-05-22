@@ -1,5 +1,6 @@
 package me.drakeet.transformer;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
@@ -32,7 +33,10 @@ public class MainActivity extends AppCompatActivity
             add(new Message("Hello world"));
             add(new Message("Sit down! We're going to drive!"));
             add(new Message("Parking Fenglin love to sit late."));
-            add(new Message("~~", "someone", "drakeet", new Now()));
+
+            add(new Message("~~", /*from = */"someone", /*to = */"drakeet", new Now()));
+            add(new Message("I am drakeet", "someone", "drakeet", new Now()));
+            add(new Message("What are you doing now?", "someone", "drakeet", new Now()));
         }
     };
 
@@ -46,9 +50,26 @@ public class MainActivity extends AppCompatActivity
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         CoreFragment fragment = CoreFragment.newInstance();
+        mCoreView = fragment;
         fragment.setDelegate(this);
-        // TODO: 16/5/15 Service bind View
         transaction.add(R.id.core_container, fragment).commitAllowingStateLoss();
+        assert mMessages != null;
+    }
+
+
+    @Override public void onAttachFragment(Fragment fragment) {
+        super.onAttachFragment(fragment);
+        Log.v(TAG, "onAttachFragment");
+    }
+
+
+    @Override protected void onResume() {
+        super.onResume();
+        // Fragment's initial may not complete. Maybe the initial process is async_(:з」∠)_
+        // Testing...
+        // TODO: 16/5/15 Service bind View
+        mService = new ServiceImpl(mCoreView);
+        mService.start();
     }
 
 
@@ -72,6 +93,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override public void onNewOut(Message message) {
         Log.v(TAG, "onNewOut: " + message.toString());
+        mService.onNewOut(message);
     }
 
 
