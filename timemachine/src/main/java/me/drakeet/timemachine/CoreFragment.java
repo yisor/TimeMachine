@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * @author drakeet
  */
-public class CoreFragment extends Fragment implements CoreContract.View, View.OnClickListener {
+public class CoreFragment extends Fragment implements CoreContract.View, View.OnClickListener, CoreHelper.CoreFragment {
 
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
@@ -32,6 +32,7 @@ public class CoreFragment extends Fragment implements CoreContract.View, View.On
     CoreContract.Delegate mDelegate;
     OnRecyclerItemClickListener mItemClickListener;
     GestureDetector mGestureDetector;
+    CoreHelper mCoreHelper;
 
 
     public CoreFragment() {
@@ -60,6 +61,7 @@ public class CoreFragment extends Fragment implements CoreContract.View, View.On
         super.onCreate(savedInstanceState);
         mMessages = mDelegate.provideInitialMessages();
         mAdapter = new MessageAdapter(mMessages);
+        mCoreHelper = CoreHelper.attach(this);
     }
 
 

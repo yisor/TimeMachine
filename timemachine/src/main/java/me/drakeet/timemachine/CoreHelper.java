@@ -1,0 +1,54 @@
+package me.drakeet.timemachine;
+
+import android.app.Activity;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+
+/**
+ * Non-UI Fragment, to be a helper of its parent.
+ *
+ * @author drakeet
+ */
+public class CoreHelper extends Fragment {
+
+    private static final String FRAG_TAG = CoreHelper.class.getCanonicalName();
+
+    public interface CoreFragment {
+        // TODO: 16/5/22
+    }
+
+
+    public static <ParentFrag extends Fragment & CoreFragment> CoreHelper attach(ParentFrag parent) {
+        return attach(parent.getChildFragmentManager());
+    }
+
+
+    public static <ParentActivity extends FragmentActivity & CoreFragment> CoreHelper attach(ParentActivity parent) {
+        return attach(parent.getSupportFragmentManager());
+    }
+
+
+    private static CoreHelper attach(FragmentManager fragmentManager) {
+        CoreHelper frag = (CoreHelper) fragmentManager.findFragmentByTag(FRAG_TAG);
+        if (frag == null) {
+            frag = new CoreHelper();
+            fragmentManager.beginTransaction().add(frag, FRAG_TAG).commit();
+        }
+        return frag;
+    }
+
+
+    private CoreFragment getParent() {
+        Fragment parentFragment = getParentFragment();
+        if (parentFragment instanceof CoreFragment) {
+            return (CoreFragment) parentFragment;
+        } else {
+            Activity activity = getActivity();
+            if (activity instanceof CoreFragment) {
+                return (CoreFragment) activity;
+            }
+        }
+        return null;
+    }
+}
