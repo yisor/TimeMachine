@@ -30,12 +30,12 @@ public class CoreHelper extends Fragment {
 
 
     private static CoreHelper attach(FragmentManager fragmentManager) {
-        CoreHelper frag = (CoreHelper) fragmentManager.findFragmentByTag(FRAG_TAG);
-        if (frag == null) {
-            frag = new CoreHelper();
-            fragmentManager.beginTransaction().add(frag, FRAG_TAG).commit();
+        CoreHelper helper = (CoreHelper) fragmentManager.findFragmentByTag(FRAG_TAG);
+        if (helper == null) {
+            helper = new CoreHelper();
+            fragmentManager.beginTransaction().add(helper, FRAG_TAG).commit();
         }
-        return frag;
+        return helper;
     }
 
 
