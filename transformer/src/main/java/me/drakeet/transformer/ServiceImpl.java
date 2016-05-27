@@ -20,7 +20,7 @@ public class ServiceImpl implements CoreContract.Service {
 
     public ServiceImpl(CoreContract.View view) {
         if (view instanceof Fragment && !((Fragment) view).isAdded()) {
-            //throw new IllegalAccessException("You must add your fragment to ")
+            // throw new IllegalAccessException("You must add your fragment to ")
             // TODO: 16/5/22  
         }
         this.view = view;
