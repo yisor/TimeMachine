@@ -15,11 +15,11 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     private final int TYPE_OUT = 1;
     private final int TYPE_IN = 2;
-    private List<Message> mList;
+    private List<Message> list;
 
 
     public MessageAdapter(List<Message> list) {
-        mList = list;
+        this.list = list;
     }
 
 
@@ -31,13 +31,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
 
     @Override public void onBindViewHolder(ViewHolder holder, int position) {
-        Message data = mList.get(position);
+        Message data = list.get(position);
         holder.content.setText(data.content);
     }
 
 
     @Override public int getItemViewType(int position) {
-        Message message = mList.get(position);
+        Message message = list.get(position);
         if (TimeKey.isCurrentUser(message.fromUserId)) {
             return TYPE_OUT;
         } else {
@@ -47,7 +47,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
 
     @Override public int getItemCount() {
-        return mList.size();
+        return list.size();
     }
 
 

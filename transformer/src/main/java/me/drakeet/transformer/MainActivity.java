@@ -23,12 +23,12 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, CoreContract.Delegate {
 
     private static final String TAG = MainActivity.class.getSimpleName();
-    private ActionBarDrawerToggle mToggle;
-    private DrawerLayout mDrawer;
+    private ActionBarDrawerToggle toggle;
+    private DrawerLayout drawer;
 
-    private CoreContract.Service mService;
-    private CoreContract.View mCoreView;
-    private List<Message> mMessages = new ArrayList<Message>(100) {
+    private CoreContract.Service service;
+    private CoreContract.View coreView;
+    private List<Message> messages = new ArrayList<Message>(100) {
         {
             add(new Message("Hello world"));
             add(new Message("Sit down! We're going to drive!"));
@@ -50,10 +50,10 @@ public class MainActivity extends AppCompatActivity
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         CoreFragment fragment = CoreFragment.newInstance();
-        mCoreView = fragment;
+        coreView = fragment;
         fragment.setDelegate(this);
         transaction.add(R.id.core_container, fragment).commitAllowingStateLoss();
-        assert mMessages != null;
+        assert messages != null;
     }
 
 
@@ -68,17 +68,17 @@ public class MainActivity extends AppCompatActivity
         // Fragment's initial may not complete. Maybe the initial process is async_(:з」∠)_
         // Testing...
         // TODO: 16/5/15 Service bind View
-        mService = new ServiceImpl(mCoreView);
-        mService.start();
+        service = new ServiceImpl(coreView);
+        service.start();
     }
 
 
     private void setupDrawerLayout(Toolbar toolbar) {
-        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mToggle = new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.navigation_drawer_open,
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close);
-        mDrawer.addDrawerListener(mToggle);
-        mToggle.syncState();
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         assert navigationView != null;
         navigationView.setNavigationItemSelectedListener(this);
@@ -87,13 +87,13 @@ public class MainActivity extends AppCompatActivity
 
     // TODO: 16/5/14 Add real data.
     @Override public List<Message> provideInitialMessages() {
-        return mMessages;
+        return messages;
     }
 
 
     @Override public void onNewOut(Message message) {
         Log.v(TAG, "onNewOut: " + message.toString());
-        mService.onNewOut(message);
+        service.onNewOut(message);
     }
 
 
@@ -118,11 +118,11 @@ public class MainActivity extends AppCompatActivity
 
 
     @Override public void onBackPressed() {
-        if (mDrawer.isDrawerOpen(GravityCompat.START)) {
-            mDrawer.closeDrawer(GravityCompat.START);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
-            mDrawer.removeDrawerListener(mToggle);
+            drawer.removeDrawerListener(toggle);
         }
     }
 
@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_send) {
 
         }
-        mDrawer.closeDrawer(GravityCompat.START);
+        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 }

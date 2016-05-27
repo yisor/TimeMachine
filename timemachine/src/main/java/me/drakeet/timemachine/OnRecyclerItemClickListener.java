@@ -12,9 +12,9 @@ import android.view.View;
 public abstract class OnRecyclerItemClickListener extends GestureDetector.SimpleOnGestureListener
         implements RecyclerView.OnItemTouchListener {
 
-    private View mChildView;
-    private RecyclerView mRecyclerView;
-    private GestureDetector mGestureDetector;
+    private View childView;
+    private RecyclerView recyclerView;
+    private GestureDetector gestureDetector;
 
 
     abstract void onItemClick(View view, int position);
@@ -26,30 +26,30 @@ public abstract class OnRecyclerItemClickListener extends GestureDetector.Simple
 
 
     public OnRecyclerItemClickListener(Context context) {
-        mGestureDetector = new GestureDetector(context.getApplicationContext(), this);
+        gestureDetector = new GestureDetector(context.getApplicationContext(), this);
     }
 
 
     @Override public boolean onSingleTapUp(MotionEvent ev) {
-        if (mChildView != null) {
-            onItemClick(mChildView, mRecyclerView.getChildAdapterPosition(mChildView));
+        if (childView != null) {
+            onItemClick(childView, recyclerView.getChildAdapterPosition(childView));
         }
         return true;
     }
 
 
     @Override public void onLongPress(MotionEvent ev) {
-        if (mChildView != null) {
-            onItemLongClick(mChildView, mRecyclerView.getChildAdapterPosition(mChildView));
+        if (childView != null) {
+            onItemLongClick(childView, recyclerView.getChildAdapterPosition(childView));
         }
     }
 
 
     @Override
     public boolean onInterceptTouchEvent(RecyclerView recyclerView, MotionEvent motionEvent) {
-        mGestureDetector.onTouchEvent(motionEvent);
-        mChildView = recyclerView.findChildViewUnder(motionEvent.getX(), motionEvent.getY());
-        mRecyclerView = recyclerView;
+        gestureDetector.onTouchEvent(motionEvent);
+        childView = recyclerView.findChildViewUnder(motionEvent.getX(), motionEvent.getY());
+        this.recyclerView = recyclerView;
         return false;
     }
 

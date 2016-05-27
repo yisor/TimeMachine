@@ -14,8 +14,8 @@ import me.drakeet.timemachine.Now;
  */
 public class ServiceImpl implements CoreContract.Service {
 
-    CoreContract.View mView;
-    Handler mHandler;
+    private CoreContract.View view;
+    private Handler handler;
 
 
     public ServiceImpl(CoreContract.View view) {
@@ -23,19 +23,19 @@ public class ServiceImpl implements CoreContract.Service {
             //throw new IllegalAccessException("You must add your fragment to ")
             // TODO: 16/5/22  
         }
-        mView = view;
+        this.view = view;
         view.setService(this);
     }
 
 
     public void mock() {
-        mHandler.post(() -> mView.onNewIn(
+        handler.post(() -> view.onNewIn(
                 new Message("A message from Service.", "Service", "drakeet", new Now())));
     }
 
 
     @Override public void start() {
-        mHandler = new Handler(Looper.getMainLooper());
+        handler = new Handler(Looper.getMainLooper());
         new Thread(() -> {
             Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
             for (; ; ) {
@@ -52,11 +52,11 @@ public class ServiceImpl implements CoreContract.Service {
         _message.fromUserId = "Service";
         _message.toUserId = "drakeet";
         _message.createdAt = new Now();
-        mView.onNewIn(_message);
+        view.onNewIn(_message);
     }
 
 
     @Override public void destroy() {
-        mHandler.removeCallbacks(null);
+        handler.removeCallbacks(null);
     }
 }

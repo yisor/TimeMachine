@@ -9,7 +9,7 @@ import android.view.inputmethod.InputMethodManager;
  */
 public class Keyboards {
 
-    public static void showKeyboard(View view) {
+    public static void show(View view) {
         if (view == null) {
             return;
         }
@@ -19,7 +19,7 @@ public class Keyboards {
     }
 
 
-    public static boolean isKeyboardShowed(View view) {
+    public static boolean isShown(View view) {
         if (view == null) {
             return false;
         }
@@ -29,7 +29,7 @@ public class Keyboards {
     }
 
 
-    public static void hideKeyboard(View view) {
+    public static void hide(View view) {
         if (view == null) {
             return;
         }

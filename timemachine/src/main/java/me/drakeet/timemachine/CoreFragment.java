@@ -21,20 +21,20 @@ import java.util.List;
 public class CoreFragment extends Fragment
         implements CoreContract.View, View.OnClickListener, CoreHelper.CoreFragment {
 
-    private RecyclerView mRecyclerView;
-    private LinearLayoutManager mLayoutManager;
-    private MessageAdapter mAdapter;
-    private ImageView mLeftAction;
-    private EditText mInput;
-    private ImageView mRightAction;
+    private RecyclerView recyclerView;
+    private LinearLayoutManager layoutManager;
+    private MessageAdapter adapter;
+    private ImageView leftAction;
+    private EditText input;
+    private ImageView rightAction;
 
-    private List<Message> mMessages;
+    private List<Message> messages;
 
-    CoreContract.Delegate mDelegate;
-    CoreContract.Service mService;
-    OnRecyclerItemClickListener mItemClickListener;
-    GestureDetector mGestureDetector;
-    CoreHelper mCoreHelper;
+    CoreContract.Delegate delegate;
+    CoreContract.Service service;
+    OnRecyclerItemClickListener itemClickListener;
+    GestureDetector gestureDetector;
+    CoreHelper coreHelper;
 
 
     public CoreFragment() {
@@ -55,20 +55,20 @@ public class CoreFragment extends Fragment
 
 
     @Override public void setDelegate(CoreContract.Delegate delegate) {
-        mDelegate = delegate;
+        this.delegate = delegate;
     }
 
 
     @Override public void setService(CoreContract.Service service) {
-        mService = service;
+        this.service = service;
     }
 
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mMessages = mDelegate.provideInitialMessages();
-        mAdapter = new MessageAdapter(mMessages);
-        mCoreHelper = CoreHelper.attach(this);
+        messages = delegate.provideInitialMessages();
+        adapter = new MessageAdapter(messages);
+        coreHelper = CoreHelper.attach(this);
     }
 
 
@@ -76,11 +76,11 @@ public class CoreFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_core, container, false);
         setupRecyclerView(rootView);
-        mLeftAction = (ImageView) rootView.findViewById(R.id.left_action);
-        mInput = (EditText) rootView.findViewById(R.id.input);
-        mRightAction = (ImageView) rootView.findViewById(R.id.right_action);
-        mLeftAction.setOnClickListener(this);
-        mRightAction.setOnClickListener(this);
+        leftAction = (ImageView) rootView.findViewById(R.id.left_action);
+        input = (EditText) rootView.findViewById(R.id.input);
+        rightAction = (ImageView) rootView.findViewById(R.id.right_action);
+        leftAction.setOnClickListener(this);
+        rightAction.setOnClickListener(this);
 
         return rootView;
     }
@@ -92,37 +92,37 @@ public class CoreFragment extends Fragment
 
 
     private void setupRecyclerView(View rootView) {
-        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.list);
-        mLayoutManager = new LinearLayoutManager(getContext());
-        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mLayoutManager.setStackFromEnd(true);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerView.setAdapter(mAdapter);
-        mItemClickListener = new OnRecyclerItemClickListener(getContext()) {
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.list);
+        layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        layoutManager.setStackFromEnd(true);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(adapter);
+        itemClickListener = new OnRecyclerItemClickListener(getContext()) {
             @Override void onItemClick(View view, int position) {
-                mDelegate.onMessageClick(mMessages.get(position));
+                delegate.onMessageClick(messages.get(position));
             }
 
 
             @Override void onItemLongClick(View view, int position) {
-                mDelegate.onMessageLongClick(mMessages.get(position));
+                delegate.onMessageLongClick(messages.get(position));
             }
         };
-        mRecyclerView.addOnItemTouchListener(mItemClickListener);
-        mGestureDetector = new GestureDetector(getContext(),
+        recyclerView.addOnItemTouchListener(itemClickListener);
+        gestureDetector = new GestureDetector(getContext(),
                 new GestureDetector.SimpleOnGestureListener() {
                     @Override public boolean onSingleTapUp(MotionEvent e) {
-                        if (Keyboards.isKeyboardShowed(mInput)) {
-                            Keyboards.hideKeyboard(mInput);
+                        if (Keyboards.isShown(input)) {
+                            Keyboards.hide(input);
                             return true;
                         }
                         return false;
                     }
                 });
-        mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
+        recyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override public boolean onTouch(View v, MotionEvent event) {
-                return mGestureDetector.onTouchEvent(event);
+                return gestureDetector.onTouchEvent(event);
             }
         });
     }
@@ -136,36 +136,36 @@ public class CoreFragment extends Fragment
     @Override public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.left_action) {
-            mDelegate.onLeftActionClick();
+            delegate.onLeftActionClick();
         } else {
-            Message message = new Message(mInput.getText().toString(), null);
-            if (!mDelegate.onRightActionClick()) {
+            Message message = new Message(input.getText().toString(), null);
+            if (!delegate.onRightActionClick()) {
                 addMessage(message);
-                mInput.setText("");
-                mDelegate.onNewOut(message);
+                input.setText("");
+                delegate.onNewOut(message);
                 offsetIfInBottom();
             }
-            mDelegate.onRightActionClick();
+            delegate.onRightActionClick();
         }
     }
 
 
     private void offsetIfInBottom() {
-        if (mLayoutManager.findLastVisibleItemPosition() == mMessages.size() - 2) {
-            mRecyclerView.smoothScrollToPosition(Integer.MAX_VALUE);
+        if (layoutManager.findLastVisibleItemPosition() == messages.size() - 2) {
+            recyclerView.smoothScrollToPosition(Integer.MAX_VALUE);
         }
     }
 
 
     @Override public void onDestroy() {
         super.onDestroy();
-        mRecyclerView.removeOnItemTouchListener(mItemClickListener);
+        recyclerView.removeOnItemTouchListener(itemClickListener);
     }
 
 
     private void addMessage(Message message) {
-        int _size = mMessages.size();
-        mMessages.add(message);
-        mAdapter.notifyItemInserted(_size);
+        int _size = messages.size();
+        messages.add(message);
+        adapter.notifyItemInserted(_size);
     }
 }
