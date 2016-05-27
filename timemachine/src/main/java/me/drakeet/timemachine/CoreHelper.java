@@ -1,6 +1,7 @@
 package me.drakeet.timemachine;
 
 import android.app.Activity;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -39,7 +40,7 @@ public class CoreHelper extends Fragment {
     }
 
 
-    private CoreFragment getParent() {
+    @Nullable private CoreFragment getParent() {
         Fragment parentFragment = getParentFragment();
         if (parentFragment instanceof CoreFragment) {
             return (CoreFragment) parentFragment;
