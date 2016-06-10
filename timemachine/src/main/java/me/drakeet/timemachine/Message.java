@@ -1,7 +1,5 @@
 package me.drakeet.timemachine;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import java.util.Date;
 
 /**
@@ -15,13 +13,7 @@ public class Message implements Cloneable {
     public Date createdAt;
 
 
-    @Deprecated public Message(@NonNull String content) {
-        this(content, /*toUserId = */null);
-    }
-
-
-    @Deprecated public Message(@NonNull String content, @Nullable String toUserId) {
-        this(content, TimeKey.userId, toUserId, new Now());
+    public Message() {
     }
 
 

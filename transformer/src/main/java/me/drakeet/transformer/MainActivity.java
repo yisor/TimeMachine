@@ -30,13 +30,8 @@ public class MainActivity extends AppCompatActivity
     private CoreContract.View coreView;
     private List<Message> messages = new ArrayList<Message>(100) {
         {
-            add(new Message("Hello world"));
-            add(new Message("Sit down! We're going to drive!"));
-            add(new Message("Parking Fenglin love to sit late."));
-
-            add(new Message("~~", /*from = */"someone", /*to = */"drakeet", new Now()));
-            add(new Message("I am drakeet", "someone", "drakeet", new Now()));
-            add(new Message("What are you doing now?", "someone", "drakeet", new Now()));
+            add(new Message("Can I help you?", /*from = */"transformer", /*to = */"drakeet",
+                new Now()));
         }
     };
 
@@ -53,7 +48,6 @@ public class MainActivity extends AppCompatActivity
         coreView = fragment;
         fragment.setDelegate(this);
         transaction.add(R.id.core_container, fragment).commitAllowingStateLoss();
-        assert messages != null;
     }
 
 
@@ -65,7 +59,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override protected void onResume() {
         super.onResume();
-        // Fragment's initial may not complete. Maybe the initial process is async_(:з」∠)_
         // Testing...
         // TODO: 16/5/15 Service bind View
         service = new ServiceImpl(coreView);

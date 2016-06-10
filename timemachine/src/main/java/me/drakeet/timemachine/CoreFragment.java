@@ -137,8 +137,9 @@ public class CoreFragment extends Fragment
         int id = v.getId();
         if (id == R.id.left_action) {
             delegate.onLeftActionClick();
-        } else {
-            Message message = new Message(input.getText().toString(), null);
+        } else if (id == R.id.right_action) {
+            Message message = new Message(input.getText().toString(), TimeKey.userId, null,
+                new Now());
             if (!delegate.onRightActionClick()) {
                 addMessage(message);
                 input.setText("");
@@ -164,6 +165,9 @@ public class CoreFragment extends Fragment
 
 
     private void addMessage(Message message) {
+        if (message.content.isEmpty()) {
+            return;
+        }
         int _size = messages.size();
         messages.add(message);
         adapter.notifyItemInserted(_size);

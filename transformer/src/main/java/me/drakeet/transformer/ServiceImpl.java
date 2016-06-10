@@ -2,12 +2,11 @@ package me.drakeet.transformer;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.os.Process;
-import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import me.drakeet.timemachine.CoreContract;
 import me.drakeet.timemachine.Message;
 import me.drakeet.timemachine.Now;
+import me.drakeet.timemachine.TimeKey;
 
 /**
  * @author drakeet
@@ -36,21 +35,18 @@ public class ServiceImpl implements CoreContract.Service {
 
     @Override public void start() {
         handler = new Handler(Looper.getMainLooper());
-        new Thread(() -> {
-            Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
-            for (; ; ) {
-                mock();
-                SystemClock.sleep(3000);
-            }
-        }).start();
     }
 
 
     @Override public void onNewOut(Message message) {
+        if (message.content.equals("滚")) {
+            view.onNewIn(new Message("但是...但是...", "Service", TimeKey.userId, new Now()));
+            return;
+        }
         // echo
         Message _message = message.clone();
         _message.fromUserId = "Service";
-        _message.toUserId = "drakeet";
+        _message.toUserId = TimeKey.userId;
         _message.createdAt = new Now();
         view.onNewIn(_message);
     }
