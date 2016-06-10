@@ -10,7 +10,7 @@ import android.view.View;
  * @author drakeet
  */
 public abstract class OnRecyclerItemClickListener extends GestureDetector.SimpleOnGestureListener
-        implements RecyclerView.OnItemTouchListener {
+    implements RecyclerView.OnItemTouchListener {
 
     private View childView;
     private RecyclerView recyclerView;

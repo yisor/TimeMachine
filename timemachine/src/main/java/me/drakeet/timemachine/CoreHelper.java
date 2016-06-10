@@ -15,6 +15,7 @@ public class CoreHelper extends Fragment {
 
     private static final String FRAG_TAG = CoreHelper.class.getCanonicalName();
 
+
     public interface CoreFragment {
         // TODO: 16/5/22
     }

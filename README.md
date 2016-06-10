@@ -7,6 +7,6 @@ Service sample:
 `/transformer`
 
 #### Goals
-- The API must be one-way.
+- One-way APIs.
 
 

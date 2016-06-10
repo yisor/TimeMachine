@@ -14,7 +14,7 @@ public class Keyboards {
             return;
         }
         InputMethodManager inputManager = (InputMethodManager) view.getContext()
-                                            .getSystemService(Context.INPUT_METHOD_SERVICE);
+            .getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
     }
 
@@ -24,7 +24,7 @@ public class Keyboards {
             return false;
         }
         InputMethodManager inputManager = (InputMethodManager) view.getContext()
-                                            .getSystemService(Context.INPUT_METHOD_SERVICE);
+            .getSystemService(Context.INPUT_METHOD_SERVICE);
         return inputManager.isActive(view);
     }
 
@@ -34,7 +34,7 @@ public class Keyboards {
             return;
         }
         InputMethodManager imm = (InputMethodManager) view.getContext()
-                                   .getSystemService(Context.INPUT_METHOD_SERVICE);
+            .getSystemService(Context.INPUT_METHOD_SERVICE);
         if (!imm.isActive()) {
             return;
         }

@@ -30,7 +30,7 @@ public class ServiceImpl implements CoreContract.Service {
 
     public void mock() {
         handler.post(() -> view.onNewIn(
-                new Message("A message from Service.", "Service", "drakeet", new Now())));
+            new Message("A message from Service.", "Service", "drakeet", new Now())));
     }
 
 

@@ -20,7 +20,7 @@ import me.drakeet.timemachine.Message;
 import me.drakeet.timemachine.Now;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, CoreContract.Delegate {
+    implements NavigationView.OnNavigationItemSelectedListener, CoreContract.Delegate {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private ActionBarDrawerToggle toggle;
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity
     private void setupDrawerLayout(Toolbar toolbar) {
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open,
-                R.string.navigation_drawer_close);
+            R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);

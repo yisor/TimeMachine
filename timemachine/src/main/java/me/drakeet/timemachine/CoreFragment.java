@@ -19,7 +19,7 @@ import java.util.List;
  * @author drakeet
  */
 public class CoreFragment extends Fragment
-        implements CoreContract.View, View.OnClickListener, CoreHelper.CoreFragment {
+    implements CoreContract.View, View.OnClickListener, CoreHelper.CoreFragment {
 
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
@@ -111,15 +111,15 @@ public class CoreFragment extends Fragment
         };
         recyclerView.addOnItemTouchListener(itemClickListener);
         gestureDetector = new GestureDetector(getContext(),
-                new GestureDetector.SimpleOnGestureListener() {
-                    @Override public boolean onSingleTapUp(MotionEvent e) {
-                        if (Keyboards.isShown(input)) {
-                            Keyboards.hide(input);
-                            return true;
-                        }
-                        return false;
+            new GestureDetector.SimpleOnGestureListener() {
+                @Override public boolean onSingleTapUp(MotionEvent e) {
+                    if (Keyboards.isShown(input)) {
+                        Keyboards.hide(input);
+                        return true;
                     }
-                });
+                    return false;
+                }
+            });
         recyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override public boolean onTouch(View v, MotionEvent event) {
                 return gestureDetector.onTouchEvent(event);

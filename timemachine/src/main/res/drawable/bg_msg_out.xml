@@ -5,7 +5,7 @@
         android:state_pressed="true"/>
     <item android:drawable="@drawable/msg_out_selected"
         android:state_selected="true"/>
-    
+
     <item android:drawable="@drawable/msg_out"/>
 
 </selector>

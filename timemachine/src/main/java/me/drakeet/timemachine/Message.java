@@ -65,11 +65,11 @@ public class Message implements Cloneable {
 
     @Override public String toString() {
         return "Message{" +
-                "content='" + content + '\'' +
-                ", fromUserId='" + fromUserId + '\'' +
-                ", toUserId='" + toUserId + '\'' +
-                ", createdAt=" + createdAt +
-                '}';
+            "content='" + content + '\'' +
+            ", fromUserId='" + fromUserId + '\'' +
+            ", toUserId='" + toUserId + '\'' +
+            ", createdAt=" + createdAt +
+            '}';
     }
 
 
