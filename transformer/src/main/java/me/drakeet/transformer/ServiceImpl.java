@@ -19,17 +19,10 @@ public class ServiceImpl implements CoreContract.Service {
 
     public ServiceImpl(CoreContract.View view) {
         if (view instanceof Fragment && !((Fragment) view).isAdded()) {
-            // throw new IllegalAccessException("You must add your fragment to ")
-            // TODO: 16/5/22  
+            // TODO: 16/5/22
         }
         this.view = view;
         view.setService(this);
-    }
-
-
-    public void mock() {
-        handler.post(() -> view.onNewIn(
-            new Message("A message from Service.", "Service", "drakeet", new Now())));
     }
 
 
@@ -40,7 +33,11 @@ public class ServiceImpl implements CoreContract.Service {
 
     @Override public void onNewOut(Message message) {
         if (message.content.equals("滚")) {
-            view.onNewIn(new Message("但是...但是...", "Service", TimeKey.userId, new Now()));
+            view.onNewIn(new Message.Builder()
+                .setContent("但是...但是...")
+                .setFromUserId("Service")
+                .setToUserId(TimeKey.userId)
+                .thenCreateAtNow());
             return;
         }
         // echo

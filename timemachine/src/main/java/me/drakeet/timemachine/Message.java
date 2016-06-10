@@ -17,7 +17,7 @@ public class Message implements Cloneable {
     }
 
 
-    public Message(String content, String fromUserId, String toUserId, Date createdAt) {
+    private Message(String content, String fromUserId, String toUserId, Date createdAt) {
         this.content = content;
         this.fromUserId = fromUserId;
         this.toUserId = toUserId;
@@ -74,5 +74,48 @@ public class Message implements Cloneable {
             e.printStackTrace();
         }
         return message;
+    }
+
+
+    public static class Builder implements me.drakeet.timemachine.Builder<Message> {
+        private String content;
+        private String fromUserId;
+        private String toUserId;
+        private Date createdAt;
+
+
+        public Builder setContent(String content) {
+            this.content = content;
+            return this;
+        }
+
+
+        public Builder setFromUserId(String fromUserId) {
+            this.fromUserId = fromUserId;
+            return this;
+        }
+
+
+        public Builder setToUserId(String toUserId) {
+            this.toUserId = toUserId;
+            return this;
+        }
+
+
+        public Builder setCreatedAt(Date createdAt) {
+            this.createdAt = createdAt;
+            return this;
+        }
+
+
+        public Message thenCreateAtNow() {
+            this.createdAt = new Now();
+            return build();
+        }
+
+
+        @Override public Message build() {
+            return new Message(content, fromUserId, toUserId, createdAt);
+        }
     }
 }

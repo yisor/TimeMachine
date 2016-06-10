@@ -13,4 +13,5 @@
 
     <color name="windowBackgroundColor">#FFF2EC</color>
     <color name="imagePlaceholder">#e7e5e5</color>
+    <color name="selected_color">#40ffffff</color>
 </resources>

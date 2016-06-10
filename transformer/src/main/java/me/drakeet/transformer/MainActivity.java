@@ -17,7 +17,7 @@ import java.util.List;
 import me.drakeet.timemachine.CoreContract;
 import me.drakeet.timemachine.CoreFragment;
 import me.drakeet.timemachine.Message;
-import me.drakeet.timemachine.Now;
+import me.drakeet.timemachine.TimeKey;
 
 public class MainActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener, CoreContract.Delegate {
@@ -30,8 +30,11 @@ public class MainActivity extends AppCompatActivity
     private CoreContract.View coreView;
     private List<Message> messages = new ArrayList<Message>(100) {
         {
-            add(new Message("Can I help you?", /*from = */"transformer", /*to = */"drakeet",
-                new Now()));
+            add(new Message.Builder()
+                .setContent("Can I help you?")
+                .setFromUserId("transformer")
+                .setToUserId(TimeKey.userId)
+                .thenCreateAtNow());
         }
     };
 

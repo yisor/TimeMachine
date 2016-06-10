@@ -12,7 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import java.util.List;
 
 /**
@@ -24,9 +24,10 @@ public class CoreFragment extends Fragment
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
     private MessageAdapter adapter;
-    private ImageView leftAction;
+    private ImageButton leftAction;
+    private ImageButton rightAction;
     private EditText input;
-    private ImageView rightAction;
+    private View inputField;
 
     private List<Message> messages;
 
@@ -76,12 +77,12 @@ public class CoreFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_core, container, false);
         setupRecyclerView(rootView);
-        leftAction = (ImageView) rootView.findViewById(R.id.left_action);
+        leftAction = (ImageButton) rootView.findViewById(R.id.left_action);
         input = (EditText) rootView.findViewById(R.id.input);
-        rightAction = (ImageView) rootView.findViewById(R.id.right_action);
+        inputField = rootView.findViewById(R.id.input_field);
+        rightAction = (ImageButton) rootView.findViewById(R.id.right_action);
         leftAction.setOnClickListener(this);
         rightAction.setOnClickListener(this);
-
         return rootView;
     }
 
@@ -138,8 +139,12 @@ public class CoreFragment extends Fragment
         if (id == R.id.left_action) {
             delegate.onLeftActionClick();
         } else if (id == R.id.right_action) {
-            Message message = new Message(input.getText().toString(), TimeKey.userId, null,
-                new Now());
+            Message message = new Message.Builder()
+                .setContent(input.getText().toString())
+                .setFromUserId(TimeKey.userId)
+                .setToUserId(null)
+                .setCreatedAt(new Now())
+                .build();
             if (!delegate.onRightActionClick()) {
                 addMessage(message);
                 input.setText("");
