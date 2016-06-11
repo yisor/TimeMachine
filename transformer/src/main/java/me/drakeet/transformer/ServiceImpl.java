@@ -29,7 +29,7 @@ public class ServiceImpl extends BaseService implements Updatable {
     private final String self = "Service";
 
 
-    public ServiceImpl(CoreContract.View view) {
+    ServiceImpl(CoreContract.View view) {
         super(view);
     }
 
@@ -74,8 +74,7 @@ public class ServiceImpl extends BaseService implements Updatable {
             .transform(input -> new String(input.getBody()))
             .transform(body -> {
                 String re = "title\">\\s+.+?href=\"([^\"]*)\">(.+?)</a>.+</li>";
-                Pattern pattern = Pattern.compile(re,
-                    Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+                Pattern pattern = Pattern.compile(re, Pattern.DOTALL);
                 return pattern.matcher(body);
             })
             .thenTransform(matcher -> {
