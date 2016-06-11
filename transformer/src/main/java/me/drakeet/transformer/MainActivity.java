@@ -22,9 +22,9 @@ public class MainActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener, CoreContract.Delegate {
 
     private static final String TAG = MainActivity.class.getSimpleName();
+
     private ActionBarDrawerToggle toggle;
     private DrawerLayout drawer;
-
     private CoreContract.Service service;
     private CoreContract.View coreView;
     private List<Message> messages = new ArrayList<Message>(100) {
@@ -55,8 +55,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override protected void onResume() {
         super.onResume();
-        // Testing...
-        // TODO: 16/5/15 Service bind View
         service = new ServiceImpl(coreView);
         service.start();
     }
@@ -71,10 +69,10 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         assert navigationView != null;
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setItemIconTintList(null);
     }
 
 
-    // TODO: 16/5/14 Add real data.
     @Override public List<Message> provideInitialMessages() {
         return messages;
     }
@@ -135,19 +133,14 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody") @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        if (id == R.id.nav_yin) {
+            // TODO: 16/6/11 add a delegateImpl to do the below works
+            Message message = new Message.Builder().setContent("求王垠的最新文章")
+                .setFromUserId(TimeKey.userId)
+                .setToUserId(ServiceImpl.SELF)
+                .thenCreateAtNow();
+            coreView.onNewOut(message);
+            onNewOut(message);
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;

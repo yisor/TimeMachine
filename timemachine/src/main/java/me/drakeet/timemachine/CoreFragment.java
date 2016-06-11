@@ -134,6 +134,11 @@ public class CoreFragment extends Fragment
     }
 
 
+    @Override public void onNewOut(Message message) {
+        addMessage(message);
+    }
+
+
     @Override public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.left_action) {
@@ -146,8 +151,9 @@ public class CoreFragment extends Fragment
                 .setCreatedAt(new Now())
                 .build();
             if (!delegate.onRightActionClick()) {
-                addMessage(message);
                 input.setText("");
+                // TODO: 16/6/12 one-way 
+                addMessage(message);
                 delegate.onNewOut(message);
                 offsetIfInBottom();
             }

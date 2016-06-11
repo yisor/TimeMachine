@@ -7,12 +7,11 @@ import java.util.List;
  */
 public interface CoreContract {
 
-    // @formatter:off
-
     interface View {
         void setDelegate(Delegate delegate);
         void setService(Service service);
         void onNewIn(Message message);
+        void onNewOut(Message message);
     }
 
 

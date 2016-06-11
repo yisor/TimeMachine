@@ -26,7 +26,7 @@ public class ServiceImpl extends BaseService implements Updatable {
     private static final Executor calculationExecutor = newSingleThreadExecutor();
 
     private Repository<Result<String>> repository;
-    private final String self = "Service";
+    public static final String SELF = "Service";
 
 
     ServiceImpl(CoreContract.View view) {
@@ -43,7 +43,7 @@ public class ServiceImpl extends BaseService implements Updatable {
             case "滚":
                 addNewIn(new Message.Builder()
                     .setContent("但是...但是...")
-                    .setFromUserId(self)
+                    .setFromUserId(SELF)
                     .setToUserId(TimeKey.userId)
                     .thenCreateAtNow());
                 break;
@@ -53,7 +53,7 @@ public class ServiceImpl extends BaseService implements Updatable {
             default:
                 // echo
                 Message _message = message.clone();
-                _message.fromUserId = self;
+                _message.fromUserId = SELF;
                 _message.toUserId = TimeKey.userId;
                 _message.createdAt = new Now();
                 addNewIn(_message);
@@ -103,7 +103,7 @@ public class ServiceImpl extends BaseService implements Updatable {
         repository.get().ifSucceededSendTo(value -> {
             Message message = new Message.Builder()
                 .setContent(value)
-                .setFromUserId(self)
+                .setFromUserId(SELF)
                 .setToUserId(TimeKey.userId)
                 .thenCreateAtNow();
             addNewIn(message);
