@@ -69,7 +69,8 @@ public class ServiceImpl extends BaseService implements Updatable {
             .goTo(networkExecutor)
             .getFrom(() -> "http://www.yinwang.org")
             .transform(url -> httpGetRequest(url).compile())
-            .attemptTransform(httpFunction()).orEnd(Result::failure)
+            .attemptTransform(httpFunction())
+            .orEnd(Result::failure)
             .goTo(calculationExecutor)
             .transform(input -> new String(input.getBody()))
             .transform(body -> {
@@ -92,7 +93,9 @@ public class ServiceImpl extends BaseService implements Updatable {
 
 
     @Override public void destroy() {
-        this.repository.removeUpdatable(this);
+        if (repository != null) {
+            repository.removeUpdatable(this);
+        }
     }
 
 
