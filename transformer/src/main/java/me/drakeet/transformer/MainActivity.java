@@ -1,6 +1,5 @@
 package me.drakeet.transformer;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
@@ -51,12 +50,6 @@ public class MainActivity extends AppCompatActivity
         coreView = fragment;
         fragment.setDelegate(this);
         transaction.add(R.id.core_container, fragment).commitAllowingStateLoss();
-    }
-
-
-    @Override public void onAttachFragment(Fragment fragment) {
-        super.onAttachFragment(fragment);
-        Log.v(TAG, "onAttachFragment");
     }
 
 
