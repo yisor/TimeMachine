@@ -28,7 +28,6 @@ public class ServiceImpl extends BaseService implements Updatable {
     private Repository<Result<String>> repository;
     public static final String SELF = "Service";
 
-
     ServiceImpl(CoreContract.View view) {
         super(view);
     }

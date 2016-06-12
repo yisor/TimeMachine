@@ -36,6 +36,7 @@ public class CoreFragment extends Fragment
     OnRecyclerItemClickListener itemClickListener;
     GestureDetector gestureDetector;
     CoreHelper coreHelper;
+    MessageDispatcher dispatcher;
 
 
     public CoreFragment() {
@@ -62,6 +63,7 @@ public class CoreFragment extends Fragment
 
     @Override public void setService(CoreContract.Service service) {
         this.service = service;
+        dispatcher = new MessageDispatcher(this, service);
     }
 
 
@@ -152,8 +154,7 @@ public class CoreFragment extends Fragment
                 .build();
             if (!delegate.onRightActionClick()) {
                 input.setText("");
-                // TODO: 16/6/12 one-way 
-                addMessage(message);
+                dispatcher.addNewOut(message);
                 delegate.onNewOut(message);
                 offsetIfInBottom();
             }

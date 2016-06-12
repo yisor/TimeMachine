@@ -16,6 +16,7 @@ import java.util.List;
 import me.drakeet.timemachine.CoreContract;
 import me.drakeet.timemachine.CoreFragment;
 import me.drakeet.timemachine.Message;
+import me.drakeet.timemachine.MessageDispatcher;
 import me.drakeet.timemachine.TimeKey;
 
 public class MainActivity extends AppCompatActivity
@@ -25,8 +26,6 @@ public class MainActivity extends AppCompatActivity
 
     private ActionBarDrawerToggle toggle;
     private DrawerLayout drawer;
-    private CoreContract.Service service;
-    private CoreContract.View coreView;
     private List<Message> messages = new ArrayList<Message>(100) {
         {
             add(new Message.Builder()
@@ -36,6 +35,7 @@ public class MainActivity extends AppCompatActivity
                 .thenCreateAtNow());
         }
     };
+    private MessageDispatcher dispatcher;
 
 
     @Override protected void onCreate(Bundle savedInstanceState) {
@@ -47,16 +47,9 @@ public class MainActivity extends AppCompatActivity
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         CoreFragment fragment = CoreFragment.newInstance();
-        coreView = fragment;
         fragment.setDelegate(this);
+        dispatcher = new MessageDispatcher(fragment, new ServiceImpl(fragment));
         transaction.add(R.id.core_container, fragment).commitAllowingStateLoss();
-    }
-
-
-    @Override protected void onResume() {
-        super.onResume();
-        service = new ServiceImpl(coreView);
-        service.start();
     }
 
 
@@ -73,6 +66,21 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+    @SuppressWarnings("StatementWithEmptyBody") @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.nav_yin) {
+            Message message = new Message.Builder().setContent("求王垠的最新文章")
+                .setFromUserId(TimeKey.userId)
+                .setToUserId(ServiceImpl.SELF)
+                .thenCreateAtNow();
+            dispatcher.addNewOut(message);
+        }
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+
     @Override public List<Message> provideInitialMessages() {
         return messages;
     }
@@ -80,7 +88,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override public void onNewOut(Message message) {
         Log.v(TAG, "onNewOut: " + message.toString());
-        service.onNewOut(message);
     }
 
 
@@ -122,27 +129,9 @@ public class MainActivity extends AppCompatActivity
 
     @Override public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-
-    @SuppressWarnings("StatementWithEmptyBody") @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.nav_yin) {
-            // TODO: 16/6/11 add a delegateImpl to do the below works
-            Message message = new Message.Builder().setContent("求王垠的最新文章")
-                .setFromUserId(TimeKey.userId)
-                .setToUserId(ServiceImpl.SELF)
-                .thenCreateAtNow();
-            coreView.onNewOut(message);
-            onNewOut(message);
-        }
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 }
